@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Book
+
+<div class="d-flex align-items-center justify-content-center">
+    <form asp-action="Delete">
+        <h2 class="text-center">Delete</h2>
+
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td><strong>Book ID:</strong></td>
+                    <td>@Model.Id</td>
+                </tr>
+
+                <tr>
+                    <td>Title:</td>
+                    <td>@Model.Title</td>
+                </tr>
+
+                <tr>
+                    <td>Price:</td>
+                    <td>@Model.Price</td>
+                </tr>
+
+                <tr>
+                    <td>Author:</td>
+                    <td>@Model.Author</td>
+                </tr>
+
+                <tr>
+                    <td>ISBN:</td>
+                    <td>@Model.ISBN</td>
+                </tr>
+
+                <tr>
+                    <td>City:</td>
+                    <td>@Model.City</td>
+                </tr>
+
+                <tr>
+                    <td>Street:</td>
+                    <td>@Model.Street</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <div class="row">
+            <strong>Do you want to delete @Model.Title</strong>
+        </div>
+
+
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group row m-1">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    </form>
+
+</div>

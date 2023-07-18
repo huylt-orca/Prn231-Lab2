@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+option csharp_namespace = "WebClient";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+
+service UserCRUD{
+	rpc Login (LoginModel) returns (TokenJwt);
+	rpc GetInfor (Empty) returns (User);
+	rpc Register (User) returns (MessageResponse);
+}
+
+service BookCRUD{
+	rpc SelectAll (BookFilterString) returns (Books);
+	rpc SelectByID (BookFilter) returns (Book);
+	rpc Insert (Book) returns (Empty);
+	rpc Update (Book) returns (Empty);
+	rpc Delete (BookFilter) returns (Empty);
+	rpc GetAllPress (Empty) returns (Presses);
+	rpc GetTotalBook(BookFilterString) returns (TotalBook);
+}
+
+message Empty{
+
+}
+
+message Book {
+	int32 Id = 1;
+	string Title = 2;
+	string ISBN = 3;
+    string Author = 4;
+    double Price = 5;
+	string City = 6;
+	string Street = 7;
+	int32 PressId = 8;
+	string PressName = 9;
+}
+
+message Books {
+	repeated Book items = 1;
+}
+
+message TotalBook{
+	int32 Total = 1;
+}
+
+message BookFilterString{
+	string Value = 1;
+	int32 Page = 2 ;
+	int32 PageSize = 3 ;
+}
+
+message BookFilter{
+	int32 id = 1;
+}
+
+message Press {
+	int32 Id = 1;
+	string Name = 2;
+}
+
+message Presses {
+	repeated Press items = 1;
+}
+
+message LoginModel {
+	string Username = 1;
+	string Password = 2;
+}
+
+message TokenJwt {
+	string Token = 1;
+}
+
+message User {
+	int32 Id = 1;
+	string Name = 2;
+	string Username = 3;
+	string Role = 4;
+	string Password = 5;
+}
+
+message MessageResponse {
+	int32 status = 1;
+	string message = 2;
+}

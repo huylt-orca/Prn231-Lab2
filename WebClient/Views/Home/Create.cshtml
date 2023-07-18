@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Book
+
+<div class="d-flex align-items-center justify-content-center">
+    <form asp-action="Create">
+        <h2 class="text-center">Create</h2>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="Title">Title</label>
+            <input class="col-8" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="Price"> Unit of Price </label>
+            <input class="col-8" type="number" asp-for="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="Author"> Author</label>
+            <input class="col-8" asp-for="Author" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="ISBN">ISBN</label>
+            <input class="col-8" asp-for="ISBN" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="PressId">Press</label>
+            <select class="col-8" asp-for="PressId">
+
+                @foreach (var item in TempData["PressList"] as List<Press>)
+                {
+                    <option value="@item.Id"> @item.Name </option>
+                }
+            </select>
+            <span asp-validation-for="PressId" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="City">City</label>
+            <input class="col-8" asp-for="City" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-4" asp-for="Street">Street</label>
+            <input class="col-8" asp-for="Street" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="form-group row m-1">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </form>
+</div>

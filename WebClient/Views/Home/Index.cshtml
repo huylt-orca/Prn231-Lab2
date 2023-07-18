@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int totalPage = (int)ViewData["total"];
+    int currentPage = (int)ViewData["currentPage"];
+    string searchValue = (string)ViewData["searchValue"];
+
+    string userRole = Context.Session.GetString("role");
+}
+
+@model Books
+
+
+<form asp-action="Index">
+    <div class="row m-2">
+        <div class="col-4 ">
+            <input class="w-100 p-1" type="text" id="searchKeyword" name="searchKeyword" placeholder="Search by Title,Author,ISBN" value="@searchValue" />
+        </div>
+        <div class="col-1">
+            <input type="submit" value="Search" class="btn btn-info text-white" />
+        </div>
+        <div class="col-5">
+        </div>
+
+    @if (userRole == "Admin")
+    {
+            <div class="text-right col-2">
+                <a class="btn btn-outline-success" asp-action="Create">Create Book</a>
+            </div>
+        }
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Unit of Price</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>City</th>
+            <th>Stress</th>
+            <th>Press Name</th>
+            @if (userRole == "Admin")
+            {
+                <th>Action</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Price</td>
+                <td>@item.Author</td>
+                <td>@item.ISBN</td>
+                <td>@item.City</td>
+                <td>@item.Street</td>
+                <td>@item.PressName</td>
+                @if (userRole == "Admin")
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+
+        @for (var i = 1; i <= totalPage; i++)
+        {
+            <li class="page-item @(i == currentPage ? "active" : "")">
+                <a class="page-link" href="/Home?page=@i&searchKeyword=@searchValue">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
